@@ -25,26 +25,46 @@ int recover_heap(int Heap[], int parent_index, int n) {
     return 0;
 }
 
-int heap_sort(int A[], int n) {
+int heap_sort(int* A, int n) {
+    //if(n <= 0) {
+    //    return -1;
+    //}
+    //int* Heap = new int[n];
+    //for(int i = 0; i < n; i++) {
+    //    Heap[i] = A[i];
+    //}
+    //int parent_index = (n - 1) / 2;
+    //while(parent_index >= 0) {
+    //    recover_heap(Heap, parent_index, n);
+    //    parent_index--;
+    //}
+    //for(int i = n; i > 0; i--) {
+    //    A[n - i] = Heap[0];
+    //    int tmp_exchange = Heap[0];
+    //    Heap[0] = Heap[i - 1];
+    //    Heap[i - 1] = tmp_exchange;
+    //    recover_heap(Heap, 0, i - 1);            // Don't forget the i should minus 1
+    //}
+    //delete Heap;
+    
     if(n <= 0) {
         return -1;
     }
-    int* Heap = new int[n];
-    for(int i = 0; i < n; i++) {
-        Heap[i] = A[i];
-    }
     int parent_index = (n - 1) / 2;
     while(parent_index >= 0) {
-        recover_heap(Heap, parent_index, n);
+        recover_heap(A, parent_index, n);
         parent_index--;
     }
     for(int i = n; i > 0; i--) {
-        A[n - i] = Heap[0];
-        int tmp_exchange = Heap[0];
-        Heap[0] = Heap[i - 1];
-        Heap[i - 1] = tmp_exchange;
-        recover_heap(Heap, 0, i - 1);            // Don't forget the i should minus 1
+        int tmp = A[i - 1];
+        A[i - 1] = A[0];
+        A[0] = tmp;
+        recover_heap(A, 0, i - 1);            // Don't forget the i should minus 1
     }
-    delete Heap;
+    for(int i = 0, j = n - 1; i < j; i++, j--) {
+        int tmp = A[i];
+        A[i] = A[j];
+        A[j] = tmp;
+    }
     return 0;
 }
